@@ -9,10 +9,14 @@ import {
   EditOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import constructionLogImage from "../../assets/fundacao.jpeg";
-import constructionLogImage2 from "../../assets/images.jpeg";
+import { registrosDiario } from "../../mocks/registrosDiario";
 
 const { Title, Text } = Typography;
+
+const climaIcon = {
+  Nublado: CloudOutlined,
+  Ensolarado: SunOutlined,
+} as const;
 
 export function ConstructionLog() {
   return (
@@ -30,128 +34,71 @@ export function ConstructionLog() {
           Novo Registro Diário
         </Button>
       </Flex>
-      <div
-        style={{
-          flexDirection: "row",
-          gap: 20,
-          display: "flex",
-          marginTop: 20,
-        }}
-      >
-        <Card
-          style={{
-            width: 30,
-            height: 30,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: "100%",
-          }}
-        >
-          <CloudOutlined />
-        </Card>
-        <Card style={{ width: "100%" }}>
-          <Flex gap={4} justify="space-between">
-            <Flex
-              gap={6}
+
+      {registrosDiario.map((registro) => {
+        const ClimaIcon = climaIcon[registro.clima];
+
+        return (
+          <div
+            key={registro.id}
+            style={{
+              flexDirection: "row",
+              gap: 20,
+              display: "flex",
+              marginTop: 20,
+            }}
+          >
+            <Card
               style={{
-                padding: "2px 8px",
-                background: "#fafafa",
-                borderRadius: 4,
-                borderLeft: "2px solid #fa8c16",
+                width: 30,
+                height: 30,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "100%",
               }}
             >
-              <Text strong>residencia alpha</Text>
-              <Text type="secondary">Fundaçção - Estacas</Text>
-            </Flex>
+              <ClimaIcon />
+            </Card>
+            <Card style={{ width: "100%" }}>
+              <Flex gap={4} justify="space-between">
+                <Flex
+                  gap={6}
+                  style={{
+                    padding: "2px 8px",
+                    background: "#fafafa",
+                    borderRadius: 4,
+                    borderLeft: "2px solid #fa8c16",
+                  }}
+                >
+                  {registro.obra && <Text strong>{registro.obra}</Text>}
+                  <Text type="secondary">{registro.etapa}</Text>
+                </Flex>
 
-            <Flex gap={10}>
-              <Text>Nublado</Text>
-              <EditOutlined />
-              <DeleteOutlined />
-            </Flex>
-          </Flex>
-          <Flex gap={4}>
-            <CalendarOutlined /> <Text>24/06/2026</Text>
-            <ClockCircleOutlined /> <Text>10:00</Text>
-            <UserOutlined /> <Text>João da Silva</Text>
-          </Flex>
-          <Text>
-            Acompanhamento da perfuração das estacas hélice contínua. Terreno
-            apresenta boa resistência conforme indicava a sondagem. Foram
-            concretadas 12 estacas no período da tarde sem intercorrências.
-          </Text>
-          <br />
-          <Flex gap={10}>
-            <Image
-              width={100}
-              style={{ marginTop: 10, borderRadius: 8 }}
-              src={constructionLogImage}
-            />
-          </Flex>
-        </Card>
-      </div>
-      <div
-        style={{
-          flexDirection: "row",
-          gap: 20,
-          display: "flex",
-          marginTop: 20,
-        }}
-      >
-        <Card
-          style={{
-            width: 30,
-            height: 30,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: "100%",
-          }}
-        >
-          <SunOutlined />
-        </Card>
-        <Card style={{ width: "100%" }}>
-          <Flex gap={4} justify="space-between">
-            <Flex
-              gap={6}
-              style={{
-                padding: "2px 8px",
-                background: "#fafafa",
-                borderRadius: 4,
-                borderLeft: "2px solid #fa8c16",
-              }}
-            >
-              <Text type="secondary">Fundaçção - Estacas</Text>
-            </Flex>
-
-            <Flex gap={10}>
-              <Text>Ensolarado</Text>
-              <EditOutlined />
-              <DeleteOutlined />
-            </Flex>
-          </Flex>
-          <Flex gap={4}>
-            <CalendarOutlined /> <Text>23/06/2026</Text>
-            <ClockCircleOutlined /> <Text>08:30</Text>
-            <UserOutlined /> <Text>Maria Santos</Text>
-          </Flex>
-          <Text>
-            Início da escavação das estacas no bloco B. Condições climáticas
-            favoráveis permitiram ritmo acelerado de trabalho. Concretagem de 8
-            estacas concluída até o meio-dia, com controle de slump dentro do
-            especificado.
-          </Text>
-          <br />
-          <Flex gap={10}>
-            <Image
-              width={100}
-              style={{ marginTop: 10, borderRadius: 8 }}
-              src={constructionLogImage2}
-            />
-          </Flex>
-        </Card>
-      </div>
+                <Flex gap={10}>
+                  <Text>{registro.clima}</Text>
+                  <EditOutlined />
+                  <DeleteOutlined />
+                </Flex>
+              </Flex>
+              <Flex gap={4}>
+                <CalendarOutlined /> <Text>{registro.data}</Text>
+                <ClockCircleOutlined /> <Text>{registro.horario}</Text>
+                <UserOutlined /> <Text>{registro.responsavel}</Text>
+              </Flex>
+              <Text>{registro.descricao}</Text>
+              <br />
+              <Flex gap={10}>
+                <Image
+                  width={100}
+                  style={{ marginTop: 10, borderRadius: 8 }}
+                  src={registro.imagem}
+                />
+              </Flex>
+            </Card>
+          </div>
+        );
+      })}
     </div>
   );
 }

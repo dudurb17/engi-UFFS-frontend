@@ -27,7 +27,7 @@ const bottomItems: MenuProps["items"] = [
 ];
 
 const routeMap: Record<string, string> = {
-  "/financeiro": "/obra",
+  "/financeiro": "/financeiro",
   "/configuracoes": "/obra",
   "/logout": "/obra",
 };
