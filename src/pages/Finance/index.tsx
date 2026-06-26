@@ -24,8 +24,20 @@ import {
   type Pagamento,
   type PagamentoStatus,
 } from "../../mocks/pagamentos";
+import Header from "../../components/Header";
+import {
+  contentCard,
+  overdueIcon,
+  paidIcon,
+  pendingIcon,
+  searchInput,
+  summaryCard,
+  summaryLabel,
+  summaryRow,
+  summaryValue,
+} from "./styles";
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 const statusTagColor: Record<PagamentoStatus, string> = {
   Pago: "success",
@@ -96,54 +108,47 @@ export function Finance() {
 
   return (
     <div>
-      <Flex justify="space-between" align="center" gap={20}>
-        <div>
-          <Title level={1} style={{ margin: 0 }}>
-            Controle Financeiro
-          </Title>
-          <Text type="secondary">
-            Requisito Funcional: RF17 - Controle de Pagamentos
-          </Text>
-        </div>
-        <Button type="primary" danger icon={<DollarOutlined />} size="large">
-          Registrar Pagamento
-        </Button>
-      </Flex>
-      <Flex style={{ marginTop: 20 }} gap={10}>
-        <Card style={{ width: "33%" }}>
+      <Header
+        title="Controle Financeiro"
+        subtitle="Requisito Funcional: RF17 - Controle de Pagamentos"
+        buttonText="Registrar Pagamento"
+        buttonIcon={<DollarOutlined />}
+      />
+      <Flex style={summaryRow} gap={10}>
+        <Card style={summaryCard}>
           <Flex gap={20}>
-            <CheckCircleOutlined style={{ color: "#52c41a", fontSize: 25 }} />
+            <CheckCircleOutlined style={paidIcon} />
             <Flex vertical>
-              <Text strong style={{ fontSize: 12 }}>
+              <Text strong style={summaryLabel}>
                 Pagamento recebido
               </Text>
-              <Text strong style={{ fontSize: 18 }}>
+              <Text strong style={summaryValue}>
                 R$ 10.000,00
               </Text>
             </Flex>
           </Flex>
         </Card>
-        <Card style={{ width: "33%" }}>
+        <Card style={summaryCard}>
           <Flex gap={20}>
-            <ClockCircleOutlined style={{ color: "#fa8c16", fontSize: 25 }} />
+            <ClockCircleOutlined style={pendingIcon} />
             <Flex vertical>
-              <Text strong style={{ fontSize: 12 }}>
+              <Text strong style={summaryLabel}>
                 Pagamento pendente
               </Text>
-              <Text strong style={{ fontSize: 18 }}>
+              <Text strong style={summaryValue}>
                 R$ 5.000,00
               </Text>
             </Flex>
           </Flex>
         </Card>
-        <Card style={{ width: "33%" }}>
+        <Card style={summaryCard}>
           <Flex gap={20}>
-            <WarningOutlined style={{ color: "#f5222d", fontSize: 25 }} />
+            <WarningOutlined style={overdueIcon} />
             <Flex vertical>
-              <Text strong style={{ fontSize: 12 }}>
+              <Text strong style={summaryLabel}>
                 Pagamento atrasado
               </Text>
-              <Text strong style={{ fontSize: 18 }}>
+              <Text strong style={summaryValue}>
                 R$ 2.000,00
               </Text>
             </Flex>
@@ -151,12 +156,12 @@ export function Finance() {
         </Card>
       </Flex>
 
-      <Card style={{ marginTop: 20 }}>
+      <Card style={contentCard}>
         <Input
           placeholder="Nome do Projeto"
           value={busca}
           onChange={(event) => setBusca(event.target.value)}
-          style={{ maxWidth: 320, marginBottom: 20 }}
+          style={searchInput}
           allowClear
         />
         <Table

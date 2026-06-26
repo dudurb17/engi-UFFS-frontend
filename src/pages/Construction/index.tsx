@@ -4,16 +4,7 @@ import {
   EyeOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import {
-  Button,
-  Card,
-  Flex,
-  Input,
-  Space,
-  Table,
-  Tag,
-  Typography,
-} from "antd";
+import { Button, Card, Input, Space, Table, Tag, Typography } from "antd";
 import type { TableColumnsType } from "antd";
 import { useMemo, useState } from "react";
 import {
@@ -21,8 +12,10 @@ import {
   type Projeto,
   type ProjetoStatus,
 } from "../../mocks/projetos";
+import Header from "../../components/Header";
+import { contentCard, searchInput } from "./styles";
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 const statusTagColor: Record<ProjetoStatus, string> = {
   "Em andamento": "processing",
@@ -73,7 +66,7 @@ const columns: TableColumnsType<Projeto> = [
   },
 ];
 
-export function About() {
+export function Construction() {
   const [busca, setBusca] = useState("");
 
   const projetosFiltrados = useMemo(() => {
@@ -89,33 +82,25 @@ export function About() {
 
   return (
     <div>
-      <Flex justify="space-between" align="center" gap={20}>
-        <div>
-          <Title level={1} style={{ margin: 0 }}>
-            Gestão de Projetos e Obras
-          </Title>
-          <Text type="secondary">
-            Requisitos funcionais: RF05 - Crud Projetos
-          </Text>
-        </div>
-        <Button type="primary" danger icon={<PlusOutlined />} size="large">
-          Novo Projeto
-        </Button>
-      </Flex>
+      <Header
+        title="Gestão de Projetos e Obras"
+        subtitle="Requisitos funcionais: RF05 - Crud Projetos"
+        buttonText="Novo Projeto"
+        buttonIcon={<PlusOutlined />}
+      />
 
-      <Card style={{ marginTop: 20 }}>
+      <Card style={contentCard}>
         <Input
           placeholder="Nome do Projeto"
           value={busca}
           onChange={(event) => setBusca(event.target.value)}
-          style={{ maxWidth: 320, marginBottom: 20 }}
+          style={searchInput}
           allowClear
         />
         <Table
           columns={columns}
           dataSource={projetosFiltrados}
           rowKey="id"
-          pagination={{ pageSize: 10 }}
           locale={{ emptyText: "Nenhum projeto encontrado." }}
         />
       </Card>

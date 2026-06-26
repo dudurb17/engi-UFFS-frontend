@@ -10,13 +10,22 @@ import { Avatar, Flex, Layout, Menu, Typography } from "antd";
 import type { MenuProps } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import engineerLogo from "../../assets/logo.jpg";
+import {
+  SIDEBAR_WIDTH,
+  bottomMenu,
+  brandSection,
+  brandSubtitle,
+  brandTitle,
+  navLabel,
+  sider,
+} from "./styles";
 
 const { Sider } = Layout;
 const { Title, Text } = Typography;
 
 const navItems: MenuProps["items"] = [
   { key: "/", icon: <HomeOutlined />, label: "Painel de Controle" },
-  { key: "/sobre", icon: <ProjectOutlined />, label: "Obras e Projetos" },
+  { key: "/construcao", icon: <ProjectOutlined />, label: "Obras e Projetos" },
   { key: "/obra", icon: <CameraOutlined />, label: "Diário de Obra" },
   { key: "/financeiro", icon: <DollarOutlined />, label: "Financeiro" },
 ];
@@ -41,32 +50,16 @@ export function Sidebar() {
   };
 
   return (
-    <Sider width={200} theme="dark">
-      <Flex
-        vertical
-        align="center"
-        style={{ padding: "40px 16px 20px", textAlign: "center" }}
-      >
+    <Sider width={SIDEBAR_WIDTH} style={sider}>
+      <Flex vertical align="center" style={brandSection}>
         <Avatar src={engineerLogo} size={50} alt="Engineer Logo" />
-        <Title level={5} style={{ color: "#fff", margin: "8px 0 0" }}>
+        <Title level={5} style={brandTitle}>
           Engi UFFS
         </Title>
-        <Text style={{ color: "rgba(255,255,255,0.65)", fontSize: 10 }}>
-          CREA-SC 1233
-        </Text>
+        <Text style={brandSubtitle}>CREA-SC 1233</Text>
       </Flex>
 
-      <Text
-        style={{
-          display: "block",
-          color: "rgba(255,255,255,0.65)",
-          fontSize: 12,
-          margin: "0 0 8px 24px",
-        }}
-      >
-        Navegação
-      </Text>
-
+      <Text style={navLabel}>Navegação</Text>
       <Menu
         theme="dark"
         mode="inline"
@@ -81,7 +74,7 @@ export function Sidebar() {
         selectable={false}
         items={bottomItems}
         onClick={handleMenuClick}
-        style={{ position: "absolute", bottom: 0, width: "100%" }}
+        style={bottomMenu}
       />
     </Sider>
   );
