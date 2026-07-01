@@ -1,10 +1,8 @@
 import {
-  Button,
   DatePicker,
   Flex,
   Form,
   Input,
-  Modal,
   Select,
   TimePicker,
   Upload,
@@ -13,6 +11,7 @@ import type { UploadFile } from "antd";
 import { CameraOutlined, PlusOutlined } from "@ant-design/icons";
 import { projetos } from "../../../mocks/projetos";
 import { formDateField, formDateTimeRow, formTimeField } from "../styles";
+import FormModal from "../../../components/FormModal";
 
 const { TextArea } = Input;
 
@@ -64,28 +63,12 @@ export default function RecordModal({
   };
 
   return (
-    <Modal
+    <FormModal
       title="Novo Registro Diário"
+      iconButton={<CameraOutlined />}
       open={open}
-      onCancel={handleClose}
-      footer={
-        <Flex justify="end" gap={12}>
-          <Button type="default" size="large" onClick={handleClose}>
-            Cancelar
-          </Button>
-          <Button
-            type="primary"
-            danger
-            icon={<CameraOutlined />}
-            size="large"
-            onClick={handleSave}
-          >
-            Salvar
-          </Button>
-        </Flex>
-      }
-      width={640}
-      destroyOnHidden
+      onClose={handleClose}
+      onSave={handleSave}
     >
       <Form form={form} layout="vertical">
         <Form.Item
@@ -194,6 +177,6 @@ export default function RecordModal({
           </Upload>
         </Form.Item>
       </Form>
-    </Modal>
+    </FormModal>
   );
 }

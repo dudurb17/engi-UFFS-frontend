@@ -1,14 +1,7 @@
-import {
-  Button,
-  DatePicker,
-  Flex,
-  Form,
-  Input,
-  Modal,
-  Select,
-} from "antd";
+import { DatePicker, Flex, Form, Input, Select } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { formField, formRow } from "../styles";
+import FormModal from "../../../components/FormModal";
 
 export type ProjectFormStatus =
   | "Em execução"
@@ -62,28 +55,12 @@ export default function ProjectModal({
   };
 
   return (
-    <Modal
+    <FormModal
       title="Novo Projeto"
+      iconButton={<PlusOutlined />}
       open={open}
-      onCancel={handleClose}
-      footer={
-        <Flex justify="end" gap={12}>
-          <Button type="default" size="large" onClick={handleClose}>
-            Cancelar
-          </Button>
-          <Button
-            type="primary"
-            danger
-            icon={<PlusOutlined />}
-            size="large"
-            onClick={handleSave}
-          >
-            Salvar
-          </Button>
-        </Flex>
-      }
-      width={640}
-      destroyOnHidden
+      onClose={handleClose}
+      onSave={handleSave}
     >
       <Form form={form} layout="vertical">
         <Form.Item
@@ -157,6 +134,6 @@ export default function ProjectModal({
           </Form.Item>
         </Flex>
       </Form>
-    </Modal>
+    </FormModal>
   );
 }
