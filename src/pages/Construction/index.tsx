@@ -13,6 +13,7 @@ import {
   type ProjetoStatus,
 } from "../../mocks/projetos";
 import Header from "../../components/Header";
+import ProjectModal from "./ProjectModal";
 import { contentCard, searchInput } from "./styles";
 
 const { Text } = Typography;
@@ -68,6 +69,7 @@ const columns: TableColumnsType<Projeto> = [
 
 export function Construction() {
   const [busca, setBusca] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const projetosFiltrados = useMemo(() => {
     const termo = busca.trim().toLowerCase();
@@ -87,6 +89,7 @@ export function Construction() {
         subtitle="Requisitos funcionais: RF05 - Crud Projetos"
         buttonText="Novo Projeto"
         buttonIcon={<PlusOutlined />}
+        onClick={() => setShowModal(true)}
       />
 
       <Card style={contentCard}>
@@ -104,6 +107,8 @@ export function Construction() {
           locale={{ emptyText: "Nenhum projeto encontrado." }}
         />
       </Card>
+
+      <ProjectModal open={showModal} onClose={() => setShowModal(false)} />
     </div>
   );
 }

@@ -25,6 +25,7 @@ import {
   type PagamentoStatus,
 } from "../../mocks/pagamentos";
 import Header from "../../components/Header";
+import PaymentModal from "./PaymentModal";
 import {
   contentCard,
   overdueIcon,
@@ -94,6 +95,7 @@ const columns: TableColumnsType<Pagamento> = [
 
 export function Finance() {
   const [busca, setBusca] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const pagamentosFiltrados = useMemo(() => {
     const termo = busca.trim().toLowerCase();
@@ -113,6 +115,7 @@ export function Finance() {
         subtitle="Requisito Funcional: RF17 - Controle de Pagamentos"
         buttonText="Registrar Pagamento"
         buttonIcon={<DollarOutlined />}
+        onClick={() => setShowModal(true)}
       />
       <Flex style={summaryRow} gap={10}>
         <Card style={summaryCard}>
@@ -172,6 +175,11 @@ export function Finance() {
           locale={{ emptyText: "Nenhum projeto encontrado." }}
         />
       </Card>
+
+      <PaymentModal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+      />
     </div>
   );
 }
